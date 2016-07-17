@@ -1,6 +1,7 @@
 package com.task.vidhurvoora.neatflickster.Adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class MovieAdapter extends ArrayAdapter<Movie>
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        ImageView ivBackdrop;
     }
 
     public MovieAdapter(Context context, ArrayList<Movie> movies) {
@@ -33,6 +35,7 @@ public class MovieAdapter extends ArrayAdapter<Movie>
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        Boolean isPortrait = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? true : false;
         Movie movie = getItem(position);
         MovieItemViewHolder viewHolder;
         if (convertView == null ) {
@@ -40,7 +43,13 @@ public class MovieAdapter extends ArrayAdapter<Movie>
             viewHolder = new MovieItemViewHolder();
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             viewHolder.tvOverview = (TextView)convertView.findViewById(R.id.tvOverview);
-            viewHolder.ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
+            if ( isPortrait ) {
+                viewHolder.ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
+            }
+            else {
+                viewHolder.ivBackdrop = (ImageView)convertView.findViewById(R.id.ivBackdrop);
+            }
+
             convertView.setTag(viewHolder);
         }
         else {
@@ -49,7 +58,12 @@ public class MovieAdapter extends ArrayAdapter<Movie>
 
         viewHolder.tvTitle.setText(movie.getTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivPoster);
+        if ( isPortrait ) {
+            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivPoster);
+        }
+        else {
+            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivBackdrop);
+        }
 
         return convertView;
     }
