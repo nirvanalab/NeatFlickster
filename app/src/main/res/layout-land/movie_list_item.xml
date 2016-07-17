@@ -11,6 +11,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:scaleType="center"
+        android:adjustViewBounds="true"
+        android:padding="15dp"
         tools:src="@mipmap/ic_launcher"/>
 
     <TextView
@@ -19,11 +21,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="The Legend of Tarzan"
         android:id="@+id/tvTitle"
+        android:layout_marginTop="66dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivBackdrop"
         android:layout_toEndOf="@+id/ivBackdrop"
-        android:layout_marginLeft="51dp"
-        android:layout_marginStart="51dp" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,8 +34,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
         android:id="@+id/tvOverview"
-        android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/ivBackdrop"
-        android:layout_toEndOf="@+id/ivBackdrop" />
+        android:layout_below="@+id/tvTitle"
+         />
 
 </RelativeLayout>

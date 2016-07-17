@@ -59,10 +59,10 @@ public class MovieAdapter extends ArrayAdapter<Movie>
         viewHolder.tvTitle.setText(movie.getTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
         if ( isPortrait ) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivPoster);
+            Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder_240).into(viewHolder.ivPoster);
         }
         else {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivBackdrop);
+            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder_240).into(viewHolder.ivBackdrop);
         }
 
         return convertView;

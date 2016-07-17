@@ -18,7 +18,6 @@ public class MovieManager
 {
     private String apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
     private String nowPlayingUrl = " https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-
     private static MovieManager sInstance;
 
     public static synchronized MovieManager getsInstance()
@@ -43,11 +42,12 @@ public class MovieManager
         return movies;
     }
 
-    public void fetchNowPlayingMovies(final MovieResponseCompletionHandler handler)
+    public void fetchNowPlayingMovies(int page ,final MovieResponseCompletionHandler handler)
     {
         AsyncHttpClient httpClient = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-       // params.put("apiKey",apiKey);
+
+        params.put("page",page);
 
         httpClient.get(nowPlayingUrl,params,new JsonHttpResponseHandler(){
 
