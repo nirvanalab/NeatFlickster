@@ -1,0 +1,77 @@
+package com.task.vidhurvoora.neatflickster.Model;
+
+import android.util.Log;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
+public class MovieManager
+{
+    private String apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
+    private String nowPlayingUrl = " https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+
+    private static MovieManager sInstance;
+
+    public static synchronized MovieManager getsInstance()
+    {
+        if ( sInstance == null ) {
+            sInstance = new MovieManager();
+        }
+        return sInstance;
+    }
+
+    public ArrayList<Movie> fetchMoviesFromJsonArray(JSONArray movieArr) {
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        for ( int i = 0 ; i < movieArr.length();i++) {
+            try {
+                JSONObject movieObj = movieArr.getJSONObject(i);
+                Movie movie = new Movie(movieObj);
+                movies.add(movie);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return movies;
+    }
+
+    public void fetchNowPlayingMovies(final MovieResponseCompletionHandler handler)
+    {
+        AsyncHttpClient httpClient = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+       // params.put("apiKey",apiKey);
+
+        httpClient.get(nowPlayingUrl,params,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                JSONArray results = new JSONArray();
+
+                try {
+                   results =  response.getJSONArray("results");
+                    ArrayList<Movie> movies = fetchMoviesFromJsonArray(results);
+                    handler.movieResults(true,movies);
+                    Log.d("Results",results.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                handler.movieResults(false,null);
+            }
+
+        });
+    }
+}
