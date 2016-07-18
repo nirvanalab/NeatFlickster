@@ -30,11 +30,11 @@ public class MovieActivity extends AppCompatActivity {
 
         lvMovies = (ListView) findViewById(R.id.lvMovies);
         movieList = new ArrayList<>();
-
         movieAdapter = new MovieAdapter(this,movieList);
         lvMovies.setAdapter(movieAdapter);
         movieContainer =  (SwipeRefreshLayout) findViewById(R.id.movieContainer);
 
+        //setup listeners
         setupRefreshListener();
         setupScrollListener();
 

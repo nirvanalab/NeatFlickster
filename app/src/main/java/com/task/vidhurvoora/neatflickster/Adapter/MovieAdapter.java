@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.task.vidhurvoora.neatflickster.Model.Movie;
+import com.task.vidhurvoora.neatflickster.Model.MovieCategory;
 import com.task.vidhurvoora.neatflickster.R;
 
 import java.util.ArrayList;
@@ -33,16 +34,42 @@ public class MovieAdapter extends ArrayAdapter<Movie>
     }
 
     @Override
+    public int getViewTypeCount() {
+        return MovieCategory.values().length;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Movie movie = (Movie)getItem(position);
+        MovieCategory category = movie.getCategory();
+        return category.ordinal();
+    }
+
+
+
+    private View getInflatedViewForType(int categoryType ) {
+        if ( categoryType == MovieCategory.MovieCategoryPopular.ordinal() ) {
+            //popular movie
+            return LayoutInflater.from(getContext()).inflate(R.layout.popular_movie_list_item,null);
+        }
+
+        return LayoutInflater.from(getContext()).inflate(R.layout.movie_list_item,null);
+
+    }
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         Boolean isPortrait = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? true : false;
         Movie movie = getItem(position);
         MovieItemViewHolder viewHolder;
         if (convertView == null ) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.movie_list_item,parent,false);
+            int movieCategoryType = getItemViewType(position);
+            convertView = getInflatedViewForType(movieCategoryType);
             viewHolder = new MovieItemViewHolder();
+
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             viewHolder.tvOverview = (TextView)convertView.findViewById(R.id.tvOverview);
+
             if ( isPortrait ) {
                 viewHolder.ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
             }
@@ -56,8 +83,14 @@ public class MovieAdapter extends ArrayAdapter<Movie>
             viewHolder = (MovieItemViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvTitle.setText(movie.getTitle());
-        viewHolder.tvOverview.setText(movie.getOverview());
+
+        if (viewHolder.tvTitle != null ) {
+            viewHolder.tvTitle.setText(movie.getTitle());
+        }
+        if (viewHolder.tvOverview != null ) {
+            viewHolder.tvOverview.setText(movie.getOverview());
+        }
+
         if ( isPortrait ) {
             Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder_240).into(viewHolder.ivPoster);
         }
