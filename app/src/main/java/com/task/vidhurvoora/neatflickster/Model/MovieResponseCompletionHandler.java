@@ -9,3 +9,4 @@ import java.util.ArrayList;
 public interface MovieResponseCompletionHandler {
     public void movieResults (Boolean isSuccess, ArrayList<Movie> movies);
 }
+

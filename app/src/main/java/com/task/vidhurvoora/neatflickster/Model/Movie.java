@@ -38,6 +38,10 @@ public class Movie
         return String.format("https://image.tmdb.org/t/p/w780/%s",backdropPath);
     }
 
+    public int getId() {
+        return id;
+    }
+
     public MovieCategory getCategory() {
         return category;
     }

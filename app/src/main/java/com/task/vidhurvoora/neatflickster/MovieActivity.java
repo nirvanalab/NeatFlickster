@@ -1,16 +1,23 @@
 package com.task.vidhurvoora.neatflickster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.task.vidhurvoora.neatflickster.Adapter.MovieAdapter;
 import com.task.vidhurvoora.neatflickster.Model.Movie;
 import com.task.vidhurvoora.neatflickster.Model.MovieManager;
 import com.task.vidhurvoora.neatflickster.Model.MovieResponseCompletionHandler;
+import com.task.vidhurvoora.neatflickster.Model.MovieTrailer;
+import com.task.vidhurvoora.neatflickster.Model.MovieTrailerResponseCompletionHandler;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -27,6 +34,8 @@ public class MovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+        //hide the action bar
+        getSupportActionBar().hide();
 
         lvMovies = (ListView) findViewById(R.id.lvMovies);
         movieList = new ArrayList<>();
@@ -37,6 +46,7 @@ public class MovieActivity extends AppCompatActivity {
         //setup listeners
         setupRefreshListener();
         setupScrollListener();
+        setupMovieClickListener();
 
         //load movies
         loadMovies();
@@ -85,6 +95,31 @@ public class MovieActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setupMovieClickListener() {
+
+        lvMovies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                Movie movie = movieList.get(position);
+
+                MovieManager.getsInstance().fetchTrailersForMovie(movie, new MovieTrailerResponseCompletionHandler() {
+                    @Override
+                    public void trailerResults(Boolean isSuccess, ArrayList<MovieTrailer> trailers) {
+                        if ( isSuccess && trailers.size() > 0) {
+                            Intent intent = new Intent(MovieActivity.this,YoutubeMoviePlayerActivity.class);
+                            intent.putExtra("trailers", Parcels.wrap(trailers));
+                            startActivity(intent);
+                        }
+                    }
+
+
+                });
+            }
+        });
+
     }
 
 
