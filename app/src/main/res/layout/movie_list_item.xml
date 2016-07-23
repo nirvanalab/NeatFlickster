@@ -23,7 +23,8 @@
         android:gravity="center_vertical"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/ivPoster"
-        android:layout_toEndOf="@+id/ivPoster" />
+        android:layout_toEndOf="@+id/ivPoster"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,5 +34,6 @@
         android:id="@+id/tvOverview"
         android:layout_below="@+id/tvTitle"
         android:layout_toRightOf="@+id/ivPoster"
-        android:layout_toEndOf="@+id/ivPoster" />
+        android:layout_toEndOf="@+id/ivPoster"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

@@ -55,6 +55,17 @@ public class MovieManager {
         return trailers;
     }
 
+    public ArrayList<MovieReview>fetchMovieReviewsFromJsonArray(JSONArray reviewArr) throws JSONException {
+        ArrayList<MovieReview> reviews = new ArrayList<MovieReview>();
+        for ( int i = 0;i < reviewArr.length();i++ ) {
+            JSONObject reviewObj = reviewArr.getJSONObject(i);
+            MovieReview review = new MovieReview(reviewObj);
+            reviews.add(review);
+        }
+        return reviews;
+    }
+
+
     public void fetchNowPlayingMovies(int page ,final MovieResponseCompletionHandler handler) {
         RequestParams params = new RequestParams();
         params.put("page",page);
@@ -122,5 +133,41 @@ public class MovieManager {
         });
     }
 
+    public void fetchReviewsForMovie (Movie movie, final MovieReviewsCompletionHandler handler ) {
+
+        String reviewRequestUrl = String.format("%s/%d/reviews?api_key=%s",movieDbBaseUrl,movie.getId(),apiKey);
+        RequestParams params = new RequestParams();
+        this.httpClient.get(reviewRequestUrl,params,new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                JSONArray results = new JSONArray();
+                try {
+                    results = response.getJSONArray("results");
+                    ArrayList<MovieReview> reviews = fetchMovieReviewsFromJsonArray(results);
+                    handler.movieReviews(true,reviews);
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                handler.movieReviews(false,null);
+            }
+        });
+    }
 
 }

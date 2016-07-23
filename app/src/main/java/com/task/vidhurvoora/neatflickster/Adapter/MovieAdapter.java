@@ -16,6 +16,8 @@ import com.task.vidhurvoora.neatflickster.R;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 /**
  * Created by vidhurvoora on 7/16/16.
  */
@@ -149,11 +151,12 @@ public class MovieAdapter extends ArrayAdapter<Movie>
 
             if ( isPortrait ) {
                 if (movieHolder.ivPoster != null ) {
-                    Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder_240).into(movieHolder.ivPoster);}
+                    Picasso.with(getContext()).load(movie.getPosterPath()).transform(new RoundedCornersTransformation(10,10)).placeholder(R.drawable.placeholder_240).into(movieHolder.ivPoster);}
                 }
             else {
                 if (movieHolder.ivBackdrop != null ) {
-                    Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder_240).into(movieHolder.ivBackdrop);}
+
+                    Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(20,20)).placeholder(R.drawable.placeholder_240).into(movieHolder.ivBackdrop);}
                 }
         }
         else {
@@ -169,7 +172,7 @@ public class MovieAdapter extends ArrayAdapter<Movie>
                 popularMovieHolder = (PopularMovieItemViewHolder)convertView.getTag();
             }
             if ( popularMovieHolder.ivBackdrop != null ) {
-                Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder_240).into(popularMovieHolder.ivBackdrop);}
+                Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(20,20)).placeholder(R.drawable.placeholder_240).into(popularMovieHolder.ivBackdrop);}
         }
 
         return convertView;

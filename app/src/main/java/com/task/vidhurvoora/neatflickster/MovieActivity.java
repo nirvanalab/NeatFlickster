@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.task.vidhurvoora.neatflickster.Adapter.MovieAdapter;
 import com.task.vidhurvoora.neatflickster.Model.Movie;
+import com.task.vidhurvoora.neatflickster.Model.MovieCategory;
 import com.task.vidhurvoora.neatflickster.Model.MovieManager;
 import com.task.vidhurvoora.neatflickster.Model.MovieResponseCompletionHandler;
 import com.task.vidhurvoora.neatflickster.Model.MovieTrailer;
@@ -103,21 +104,31 @@ public class MovieActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                Movie movie = movieList.get(position);
+               final Movie movie = movieList.get(position);
 
                 MovieManager.getsInstance().fetchTrailersForMovie(movie, new MovieTrailerResponseCompletionHandler() {
                     @Override
                     public void trailerResults(Boolean isSuccess, ArrayList<MovieTrailer> trailers) {
-                        if ( isSuccess && trailers.size() > 0) {
-                            Intent intent = new Intent(MovieActivity.this,YoutubeMoviePlayerActivity.class);
-                            intent.putExtra("trailers", Parcels.wrap(trailers));
-                            startActivity(intent);
+
+                        //check if the movie is popular or not
+                        if (movie.getCategory() == MovieCategory.MovieCategoryPopular) {
+                            if ( isSuccess && trailers.size() > 0) {
+                                Intent intent = new Intent(MovieActivity.this,YoutubeMoviePlayerActivity.class);
+                                intent.putExtra("trailers", Parcels.wrap(trailers));
+                                startActivity(intent);
+                            }
+                        }
+                        else {
+                            //movie is not popular
+                            //TODO make a request to fetch detail movie info?
+                            Intent detailIntent = new Intent(MovieActivity.this,MovieDetailActivity.class);
+                            detailIntent.putExtra("movie", Parcels.wrap(movie));
+                            detailIntent.putExtra("trailers",Parcels.wrap(trailers));
+                            startActivity(detailIntent);
                         }
                     }
-
-
-                });
-            }
+           });
+          }
         });
 
     }
