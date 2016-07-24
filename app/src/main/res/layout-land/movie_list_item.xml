@@ -41,6 +41,13 @@
         android:textSize="@dimen/movie_overview_font_size"
         android:textColor="@android:color/white"
         />
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:isIndicator="true"
+            android:id="@+id/rbMovieRating"
+            />
 
     </LinearLayout>
 

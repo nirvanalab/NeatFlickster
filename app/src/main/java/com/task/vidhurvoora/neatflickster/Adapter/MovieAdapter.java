@@ -2,11 +2,15 @@ package com.task.vidhurvoora.neatflickster.Adapter;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -31,11 +35,14 @@ public class MovieAdapter extends ArrayAdapter<Movie>
         TextView tvOverview;
         ImageView ivPoster;
         ImageView ivBackdrop;
+        RatingBar rbMovieRating;
     }
 
     private static class PopularMovieItemViewHolder
     {
         ImageView ivBackdrop;
+        TextView tvTitle;
+        RatingBar rbMovieRating;
     }
 
     public MovieAdapter(Context context, ArrayList<Movie> movies)
@@ -67,52 +74,6 @@ public class MovieAdapter extends ArrayAdapter<Movie>
 
     }
 
-   /*@Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-
-        Boolean isPortrait = getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? true : false;
-        Movie movie = getItem(position);
-        MovieItemViewHolder viewHolder;
-        if (convertView == null ) {
-            int movieCategoryType = getItemViewType(position);
-            convertView = getInflatedViewForType(movieCategoryType);
-            viewHolder = new MovieItemViewHolder();
-
-            viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-            viewHolder.tvOverview = (TextView)convertView.findViewById(R.id.tvOverview);
-
-            if ( isPortrait ) {
-                viewHolder.ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
-            }
-            else {
-                viewHolder.ivBackdrop = (ImageView)convertView.findViewById(R.id.ivBackdrop);
-            }
-
-            convertView.setTag(viewHolder);
-        }
-        else {
-            viewHolder = (MovieItemViewHolder) convertView.getTag();
-        }
-
-
-        if (viewHolder.tvTitle != null ) {
-            viewHolder.tvTitle.setText(movie.getTitle());
-        }
-        if (viewHolder.tvOverview != null ) {
-            viewHolder.tvOverview.setText(movie.getOverview());
-        }
-
-        if ( isPortrait ) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).placeholder(R.drawable.placeholder_240).into(viewHolder.ivPoster);
-        }
-        else {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).placeholder(R.drawable.placeholder_240).into(viewHolder.ivBackdrop);
-        }
-
-        return convertView;
-    }*/
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -133,6 +94,7 @@ public class MovieAdapter extends ArrayAdapter<Movie>
 
                 movieHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
                 movieHolder.tvOverview = (TextView)convertView.findViewById(R.id.tvOverview);
+                movieHolder.rbMovieRating = (RatingBar)convertView.findViewById(R.id.rbMovieRating);
 
                 if ( isPortrait ) {
                     movieHolder.ivPoster = (ImageView) convertView.findViewById(R.id.ivPoster);
@@ -152,6 +114,12 @@ public class MovieAdapter extends ArrayAdapter<Movie>
             if (movieHolder.tvOverview != null ) {
                 movieHolder.tvOverview.setText(movie.getOverview());
             }
+            if (movieHolder.rbMovieRating !=null ) {
+                movieHolder.rbMovieRating.setMax(10);
+                movieHolder.rbMovieRating.setRating(movie.getVoteAverage()/2);
+                LayerDrawable stars = (LayerDrawable) movieHolder.rbMovieRating.getProgressDrawable();
+                stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            }
 
             if ( isPortrait ) {
                 if (movieHolder.ivPoster != null ) {
@@ -170,13 +138,24 @@ public class MovieAdapter extends ArrayAdapter<Movie>
                 convertView = getInflatedViewForType(movieCategoryType);
                 popularMovieHolder = new PopularMovieItemViewHolder();
                 popularMovieHolder.ivBackdrop = (ImageView)convertView.findViewById(R.id.ivBackdrop);
+                popularMovieHolder.tvTitle = (TextView)convertView.findViewById(R.id.tvTitle);
+                popularMovieHolder.rbMovieRating = (RatingBar)convertView.findViewById(R.id.rbMovieRating);
                 convertView.setTag(popularMovieHolder);
             }
             else {
                 popularMovieHolder = (PopularMovieItemViewHolder)convertView.getTag();
             }
             if ( popularMovieHolder.ivBackdrop != null ) {
-                Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(20,20)).placeholder(R.drawable.placeholder_240).into(popularMovieHolder.ivBackdrop);}
+                Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(20,20)).placeholder(R.drawable.placeholder_240).into(popularMovieHolder.ivBackdrop);
+            }
+            popularMovieHolder.tvTitle.setText(movie.title);
+            if (popularMovieHolder.rbMovieRating !=null ) {
+                popularMovieHolder.rbMovieRating.setMax(10);
+                popularMovieHolder.rbMovieRating.setRating(movie.getVoteAverage()/2);
+                LayerDrawable stars = (LayerDrawable) popularMovieHolder.rbMovieRating.getProgressDrawable();
+                stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            }
+
         }
 
 //        lastPosition = position;

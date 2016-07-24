@@ -14,6 +14,7 @@ public class Movie
     public MovieCategory category;
     public String releaseDate;
     public int id;
+    public int voteAverage;
 
     public Movie() {
 
@@ -24,18 +25,10 @@ public class Movie
         this.overview = jsonObject.getString("overview");
         this.title = jsonObject.getString("title");
         this.backdropPath = jsonObject.getString("backdrop_path");
-        int voteAverage = jsonObject.getInt("vote_average");
-        this.category = voteAverage > 5 ? MovieCategory.MovieCategoryPopular : MovieCategory.MovieCategoryNotPopular;
+        this.voteAverage = jsonObject.getInt("vote_average");
+        this.category = this.voteAverage > 5 ? MovieCategory.MovieCategoryPopular : MovieCategory.MovieCategoryNotPopular;
         this.id = jsonObject.getInt("id");
         this.releaseDate = jsonObject.getString("release_date");
-//
-//        String releaseDateStr = jsonObject.getString("release_date");
-//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//        try {
-//            this.releaseDate = df.parse(releaseDateStr);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public String getPosterPath() {
@@ -60,6 +53,10 @@ public class Movie
 
     public int getId() {
         return id;
+    }
+
+    public int getVoteAverage() {
+        return voteAverage;
     }
 
     public MovieCategory getCategory() {

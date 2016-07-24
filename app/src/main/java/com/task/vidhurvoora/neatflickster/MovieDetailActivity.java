@@ -1,8 +1,12 @@
 package com.task.vidhurvoora.neatflickster;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -32,6 +36,7 @@ public class MovieDetailActivity extends YouTubeBaseActivity {
     private TextView tvTitleDetail;
     private TextView tvOverviewDetail;
     private ListView lvReviews;
+    private RatingBar rbMovieRating;
     private MovieReviewAdapter reviewAdapter;
     private ArrayList<String> movieKeys = new ArrayList<>();
     private ArrayList<MovieReview>movieReviews = new ArrayList<MovieReview>();
@@ -45,7 +50,7 @@ public class MovieDetailActivity extends YouTubeBaseActivity {
         tvTitleDetail = (TextView)findViewById(R.id.tvTitleDetail);
         tvOverviewDetail = (TextView)findViewById(R.id.tvOverviewDetail);
         tvReleaseDate = (TextView)findViewById(R.id.tvReleaseDate);
-
+        rbMovieRating = (RatingBar)findViewById(R.id.rbMovieRating);
 
         ArrayList<MovieTrailer> trailers = (ArrayList<MovieTrailer>) Parcels.unwrap(getIntent().getParcelableExtra("trailers"));
         for ( MovieTrailer trailer : trailers ) {
@@ -71,6 +76,12 @@ public class MovieDetailActivity extends YouTubeBaseActivity {
             reviewAdapter = new MovieReviewAdapter(this,movieReviews);
             lvReviews.setAdapter(reviewAdapter);
         }
+
+        //movie rating
+        rbMovieRating.setMax(10);
+        rbMovieRating.setRating(movie.getVoteAverage()/2);
+        LayerDrawable stars = (LayerDrawable)rbMovieRating.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
 
         doPlayerInit();
         if ( movie != null ) {
