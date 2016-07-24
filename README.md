@@ -2,7 +2,7 @@
 
 **NeatFlickster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
 
-Time spent: **9** hours spent in total
+Time spent: **30** hours spent in total
 
 ## User Stories
 
@@ -14,7 +14,7 @@ The following **required** functionality is completed:
   * [x] Title, Backdrop Image, Overview (Landscape mode)
 * [x] Layout is optimized with the [ViewHolder](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView#improving-performance-with-the-viewholder-pattern) pattern.
 
-The following **optional** features are NOT yet implemented:
+The following **optional** features are implemented:
 
 * [x] User can **pull-to-refresh** popular stream to get the latest movies.
 * [x] Display a nice default [placeholder graphic](http://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#configuring-picasso) for each image during loading.
@@ -36,6 +36,8 @@ The following **additional** features are implemented:
 * [x] Automatically loads more movies when the user scrolls down till the end of the list!
 * [x] If a movie contains multiple trailers, watch them one after the other in full screen (load multiple trailers)
 * [x] Fetches the movie reviews and show the the reviews of the Movie in the detail activity
+* [x] Optimized layouts for the movie details for Portrait and Landscape
+* [x] Custom Launch Icon and Splash Screen
 
 ## Video Walkthrough
 
