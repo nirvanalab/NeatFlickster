@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NeatFlickster</string>
+    <string name="lbl_reviews"> <u>Reviews:</u>.</string>
 </resources>

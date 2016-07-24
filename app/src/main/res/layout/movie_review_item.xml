@@ -5,16 +5,31 @@
     android:layout_height="wrap_content"
     >
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAuthor"
-        tools:text="Author"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvLblAuthor"
+            android:text="Author: "
+            android:textStyle="bold"
+            android:textSize="@dimen/movie_overview_font_size"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAuthor"
+            tools:text="Author"
+            android:textStyle="bold"
+            android:textSize="@dimen/movie_overview_font_size"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvReview"
-        tools:text="Review"/>
+        tools:text="Review"
+        android:textSize="@dimen/movie_overview_font_size"/>
 
 </LinearLayout>

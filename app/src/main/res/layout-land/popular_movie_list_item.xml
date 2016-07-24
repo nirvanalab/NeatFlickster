@@ -3,20 +3,23 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/ivBackdrop"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:scaleType="fitXY"
         android:padding="10dp"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
         android:id="@+id/ivPlayOverlay"
         android:src="@drawable/play_overlay"
         />

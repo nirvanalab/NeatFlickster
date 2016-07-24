@@ -23,6 +23,8 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 public class MovieAdapter extends ArrayAdapter<Movie>
 {
+    private int lastPosition = -1;
+
     private static class MovieItemViewHolder
     {
         TextView tvTitle;
@@ -125,6 +127,8 @@ public class MovieAdapter extends ArrayAdapter<Movie>
             if (convertView == null ) {
 
                 convertView = getInflatedViewForType(movieCategoryType);
+
+
                 movieHolder = new MovieItemViewHolder();
 
                 movieHolder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
@@ -175,6 +179,10 @@ public class MovieAdapter extends ArrayAdapter<Movie>
                 Picasso.with(getContext()).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(20,20)).placeholder(R.drawable.placeholder_240).into(popularMovieHolder.ivBackdrop);}
         }
 
+//        lastPosition = position;
+//        Animation animation = new TranslateAnimation(0, 0, (position > lastPosition) ? 100 : -100, 0);
+//        animation.setDuration(400);
+//        convertView.startAnimation(animation);
         return convertView;
     }
 }

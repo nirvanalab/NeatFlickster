@@ -4,26 +4,34 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
         android:id="@+id/ivPoster"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:scaleType="center"
         android:adjustViewBounds="true"
-        android:padding="5dp"
+        android:padding="15dp"
         tools:src="@mipmap/ic_launcher" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/ivPoster"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="The Legend of Tarzan"
         android:id="@+id/tvTitle"
-        android:gravity="center_vertical"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivPoster"
-        android:layout_toEndOf="@+id/ivPoster"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/movie_title_font_size"
+        android:textStyle="bold"
         android:textColor="@android:color/white"/>
 
     <TextView
@@ -33,7 +41,7 @@
         android:text="Tarzan, having acclimated to life in London, is called back to his former home in the jungle to investigate the activities at a mining encampment."
         android:id="@+id/tvOverview"
         android:layout_below="@+id/tvTitle"
-        android:layout_toRightOf="@+id/ivPoster"
-        android:layout_toEndOf="@+id/ivPoster"
+        android:textSize="@dimen/movie_overview_font_size"
         android:textColor="@android:color/white"/>
+    </LinearLayout>
 </RelativeLayout>

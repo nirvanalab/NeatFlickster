@@ -19,30 +19,66 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/movieDetailPlayer"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         tools:background="@android:color/holo_blue_bright"
         />
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_below="@+id/movieDetailPlayer"
-       android:id="@+id/tvReleaseDate"
-       />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/movieDetailPlayer"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTitleDetail"
+        android:textStyle="bold"
+        android:textSize="@dimen/movie_title_font_size"
+        />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLblReleaseDate"
+                android:text="Release Date:"
+                android:textSize="@dimen/movie_overview_font_size"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvLblReleaseDate"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/tvReleaseDate"
+                android:textSize="@dimen/movie_overview_font_size"
+                />
+        </LinearLayout>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvReleaseDate"
-        android:id="@+id/tvTitleDetail"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvTitleDetail"
         android:id="@+id/tvOverviewDetail"
+        android:textSize="@dimen/movie_overview_font_size"
         />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/tvLblReviews"
+            android:textStyle="bold"
+            android:text="@string/lbl_reviews"
+            android:textSize="@dimen/movie_title_font_size"
+            />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,5 +86,6 @@
         android:layout_below="@+id/tvOverviewDetail"
         android:layout_alignParentBottom="true"
         />
+    </LinearLayout>
 
 </RelativeLayout>
