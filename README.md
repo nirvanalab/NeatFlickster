@@ -35,9 +35,11 @@ The following **additional** features are implemented:
 
 * [x] Automatically loads more movies when the user scrolls down till the end of the list!
 * [x] If a movie contains multiple trailers, watch them one after the other in full screen (load multiple trailers)
+* [x] Used [Parceler](https://guides.codepath.com/android/Using-Parceler) to pass array list of custom objects between activity via Intent.
 * [x] Fetches the movie reviews and show the the reviews of the Movie in the detail activity
 * [x] Optimized layouts for the movie details for Portrait and Landscape
 * [x] Custom Launch Icon and Splash Screen
+
 
 ## Video Walkthrough
 
@@ -51,12 +53,13 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-
+Reference used for [custom splash screen](https://www.bignerdranch.com/blog/splash-screens-the-right-way/)
 
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Parceler](https://github.com/johncarl81/parceler) -   Parcelables are a great way to serialize Java Objects between Contexts
 
 ## License
 
